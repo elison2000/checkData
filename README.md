@@ -1,4 +1,15 @@
 # checkData(golang版本)
+
+## Usage scenarios:
+
+1. Data synchronization verification: When using master-slave replication for data backup or data replication, this tool can be used to verify whether the data between the master and slave databases is consistent. If inconsistencies are found, appropriate measures can be taken to repair the data.
+
+2. Data migration verification: When migrating a database to the cloud or another location, this tool can be used to verify whether the data in the original database and the target database is complete. This can help us verify whether there is any data loss or corruption during the migration process.
+
+3. Data warehouse verification: In data warehouse projects, data often flows downstream from upstream. This tool can be used to verify whether the data between upstream and downstream is consistent. This tool supports two modes of verification: full field verification and partial field verification, which can be selected according to actual needs.
+
+4. Data repair: If inconsistencies are detected during data verification, this tool can automatically generate repair SQL statements to fix the problem. This greatly reduces the workload of administrators and can quickly restore data accuracy. At the same time, the automatically generated repair SQL statements can also be used for backup and documentation in the future.
+
 ## 使用场景：
 1. 核对主从同步的数据库是否一致。
 2. 核对自建和RDS之间的数据库是否完整，我们用来验证上云迁移的数据完整性。
