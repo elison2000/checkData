@@ -11,10 +11,14 @@
 4. Data repair: If inconsistencies are detected during data verification, this tool can automatically generate repair SQL statements to fix the problem. This greatly reduces the workload of administrators and can quickly restore data accuracy. At the same time, the automatically generated repair SQL statements can also be used for backup and documentation in the future.
 
 ## 使用场景：
-1. 核对主从同步的数据库是否一致。
-2. 核对自建和RDS之间的数据库是否完整，我们用来验证上云迁移的数据完整性。
-3. 用于核对数仓项目中的上游和下游的数据是否一致，支持全部字段核对和部分字段核对两种模式。
-4. 某些不重要的数据，只关心总行数和核对速度，不关心值是否一致，可以只核对总行数（不核对明细数据）。
+1. 数据同步核对
+> 当使用主从同步的方式来实现数据备份或数据复制时，我们可以使用这个工具来核对主从数据库之间的数据是否一致。如果发现不一致的情况，就可以采取相应的措施来修复数据。
+2. 数据迁移验证
+> 当将数据库迁移到云端或其他地方时，我们可以使用这个工具来核对原数据库和目标数据库之间的数据是否完整。这可以帮助我们验证迁移过程中是否有数据丢失或损坏的情况。
+3. 数据仓库核对
+> 在数据仓库项目中，数据往往会从上游传递到下游，我们可以使用这个工具来核对上游和下游之间的数据是否一致。这个工具支持全部字段核对和部分字段核对两种模式，可以根据实际需要进行选择。
+4. 数据修复
+> 如果在数据核对过程中发现数据不一致，这个工具可以自动生成修复SQL语句来修复问题。这大大减轻了管理员的工作负担，并可以快速恢复数据的准确性。
 
 ## 优点：
 1. 支持多种数据库版本：mysql(tidb/doris),mongo,postgresql。
