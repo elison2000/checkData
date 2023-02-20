@@ -596,7 +596,7 @@ func (this *MysqlTable) CheckTableDetail() {
 		}
 
 		if len(TargetMoreDict) > 0 {
-			tmoreFileName := fmt.Sprintf("%s/%s.tlost", this.DbGroup.Logdir, this.TbName)
+			tmoreFileName := fmt.Sprintf("%s/%s.tmore", this.DbGroup.Logdir, this.TbName)
 			tmoreFile, err := util.File(tmoreFileName)
 			if err != nil {
 				slog.Errorf("写入文件%s报错: %s", tmoreFileName, err)
@@ -807,10 +807,9 @@ func (this *MysqlTable) CheckTableDetail() {
 		slog.Infof("[%s.%s] 不一致行数:%d，大于--max-recheck-rows参数，跳过复核", this.DbName, this.TbName, recheckRows)
 	}
 
-	var sqltext string
 	//导出不一致的数据SQL
 	if len(diffList) > 0 {
-		sqltext = "/* 开启--skip-cols参数时，生成的修复SQL会缺失这些跳过的列 */\n"
+		sqltext := "/* 开启--skip-cols参数时，生成的修复SQL会缺失这些跳过的列 */\n"
 		sqltext += fmt.Sprintf("use %s;\n", this.DbGroup.TargetDb)
 		for _, idtext := range diffList {
 			text, err := this.GetRepairSQL(idtext, 2)
@@ -826,7 +825,7 @@ func (this *MysqlTable) CheckTableDetail() {
 	}
 
 	if len(SourceMoreDict) > 0 {
-		sqltext = "/* 开启--skip-cols参数时，生成的修复SQL会缺失这些跳过的列 */\n"
+		sqltext := "/* 开启--skip-cols参数时，生成的修复SQL会缺失这些跳过的列 */\n"
 		sqltext += fmt.Sprintf("use %s;\n", this.DbGroup.TargetDb)
 		for idtext, _ := range SourceMoreDict {
 			text, err := this.GetRepairSQL(idtext, 1)
@@ -842,7 +841,7 @@ func (this *MysqlTable) CheckTableDetail() {
 	}
 
 	if len(TargetMoreDict) > 0 {
-		sqltext = fmt.Sprintf("use %s;\n", this.DbGroup.TargetDb)
+		sqltext := fmt.Sprintf("use %s;\n", this.DbGroup.TargetDb)
 		for idtext, _ := range TargetMoreDict {
 			text, err := this.GetRepairSQL(idtext, 0)
 			if err != nil {

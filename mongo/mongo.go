@@ -411,7 +411,7 @@ func (this *MongoTable) CheckTableDetail() {
 		}
 
 		if len(TargetMoreDict) > 0 {
-			tmoreFileName := fmt.Sprintf("%s/%s.tlost", this.DbGroup.Logdir, this.TbName)
+			tmoreFileName := fmt.Sprintf("%s/%s.tmore", this.DbGroup.Logdir, this.TbName)
 			tmoreFile, err := util.File(tmoreFileName)
 			if err != nil {
 				slog.Errorf("写入文件%s报错: %s", tmoreFileName, err)
