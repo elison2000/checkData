@@ -29,14 +29,15 @@ type Checker struct {
 }
 
 func NewChecker(t model.Table, opt *model.Options) *Checker {
-	sData := make(chan *model.Data, opt.Capacity)
-	tData := make(chan *model.Data, opt.Capacity)
+	//不能设置太大，占用内存高
+	sData := make(chan *model.Data, 8)
+	tData := make(chan *model.Data, 8)
 	sDone := make(chan struct{}, 2)
 	tDone := make(chan struct{}, 2)
 
-	source := make(map[string]uint32, opt.Capacity)
-	target := make(map[string]uint32, opt.Capacity)
-	diff := make([]string, 0, opt.Capacity)
+	source := make(map[string]uint32)
+	target := make(map[string]uint32)
+	diff := make([]string, 0)
 	return &Checker{
 		Table:          t,
 		Capacity:       opt.Capacity,

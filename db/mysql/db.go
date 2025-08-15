@@ -23,7 +23,7 @@ type Database struct {
 
 func (self *Database) getTables() (err error) {
 	// 获取表名
-	sql := fmt.Sprintf("show tables")
+	sql := fmt.Sprintf("show full tables where table_type = 'BASE TABLE'")
 	//获取源库所有表
 	tableS, err := util.QueryReturnList(self.SourceDbConn, sql)
 	if err != nil {

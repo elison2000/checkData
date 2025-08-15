@@ -43,7 +43,11 @@ func checkAndSettle(opt *model.Options, dbg [2]string) {
 	util.WriteFile(csvFile, fieldNames)
 
 	//核对数据库
-	tables, results := checkDB(opt, dbg)
+	tables, results, err := checkDB(opt, dbg)
+	if err != nil {
+		slog.Error(err)
+		os.Exit(1)
+	}
 
 	//汇总结果
 	var yesTables, noTables, unknownTables []string
@@ -90,14 +94,13 @@ func checkAndSettle(opt *model.Options, dbg [2]string) {
 
 }
 
-func checkDB(opt *model.Options, dbg [2]string) (tables *model.TableInfo, results []*model.Result) {
+func checkDB(opt *model.Options, dbg [2]string) (tables *model.TableInfo, results []*model.Result, err error) {
 
 	defer util.TimeCost()(fmt.Sprintf("[%s:%s] 数据库核对完成", dbg[0], dbg[1]))
 	slog.Infof("[%s:%s] 开始核对数据库", dbg[0], dbg[1])
 
 	//创建数据库对象
 	var db model.Database
-	var err error
 	switch opt.DbType {
 	case "mysql":
 		db, err = mysql.NewDatabase(opt, dbg)
